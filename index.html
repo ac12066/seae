@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>SEAE - Sistema de Evaluación de Alternativas Económicas</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- html2canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>SEAE - Sistema de Evaluación de Alternativas Económicas</h1>
+    <p>VPN · CAE · TIR</p>
+  </header>
+
+  <main>
+    <!-- ================== DATOS GENERALES ================== -->
+    <section class="card">
+      <h2>Datos generales del proyecto</h2>
+      <div class="grid">
+        <label>
+          Costo inicial (C₀):
+          <input type="number" id="costoInicial" step="0.01" />
+        </label>
+        <label>
+          Tasa de descuento (i) [%]:
+          <input type="number" id="tasa" step="0.01" />
+        </label>
+        <label>
+          Vida útil (n) [años]:
+          <input type="number" id="vida" />
+        </label>
+      </div>
+
+      <h3>Flujos de efectivo (una alternativa)</h3>
+      <div id="flujosContainer"></div>
+      <button id="btnGenerarFlujos">Generar flujos</button>
+
+      <div class="actions">
+        <button id="btnCalcular">Calcular métodos</button>
+      </div>
+
+      <div class="actions">
+        <button id="btnReiniciar" class="btn-gray">Reiniciar</button>
+      </div>
+
+    </section>
+
+    <!-- ================== RESULTADOS MÉTODOS ================== -->
+    <section class="card">
+      <h2>Resultados de la alternativa</h2>
+      <div class="result-row">
+        <div>
+          <h3>VPN</h3>
+          <p>Valor Presente Neto:</p>
+          <p class="resultado" id="vpnResultado">-</p>
+          <p id="vpnDecision" class="decision"></p>
+        </div>
+        <div>
+          <h3>CAE</h3>
+          <p>Costo Anual Equivalente:</p>
+          <p class="resultado" id="caeResultado">-</p>
+          <p id="caeDecision" class="decision"></p>
+        </div>
+        <div>
+          <h3>TIR</h3>
+          <p>Tasa Interna de Retorno:</p>
+          <p class="resultado" id="tirResultado">-</p>
+          <p id="tirDecision" class="decision"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================== COMPARACIÓN DE ALTERNATIVAS ================== -->
+    <section class="card">
+      <h2>Comparación de alternativas</h2>
+      <p>Opcional: ingresa datos para dos alternativas y compáralas.</p>
+
+      <div class="grid-2">
+        <div>
+          <h3>Alternativa A</h3>
+          <label>
+            Costo inicial A:
+            <input type="number" id="costoA" step="0.01" />
+          </label>
+          <label>
+            VPN A:
+            <input type="number" id="vpnA" step="0.01" />
+          </label>
+          <label>
+            CAE A:
+            <input type="number" id="caeA" step="0.01" />
+          </label>
+          <label>
+            TIR A [%]:
+            <input type="number" id="tirA" step="0.01" />
+          </label>
+        </div>
+
+        <div>
+          <h3>Alternativa B</h3>
+          <label>
+            Costo inicial B:
+            <input type="number" id="costoB" step="0.01" />
+          </label>
+          <label>
+            VPN B:
+            <input type="number" id="vpnB" step="0.01" />
+          </label>
+          <label>
+            CAE B:
+            <input type="number" id="caeB" step="0.01" />
+          </label>
+          <label>
+            TIR B [%]:
+            <input type="number" id="tirB" step="0.01" />
+          </label>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="btnComparar">Comparar alternativas</button>
+      </div>
+
+      <div id="comparacionResultado"></div>
+
+      <canvas id="graficoComparacion" height="120"></canvas>
+    </section>
+
+    <!-- ================== EXPORTAR PDF ================== -->
+    <section class="card">
+      <h2>Exportar reporte en PDF</h2>
+      <label>
+        Nombres del equipo:
+        <input type="text" id="nombresEquipo" placeholder="Integrante 1, Integrante 2, ..." />
+      </label>
+      <div id="equipoPreview" style="margin-top: 1rem;"></div>
+      <div class="actions">
+        <button id="btnExportarPDF">Exportar PDF</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <small>SEAE - UES</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
